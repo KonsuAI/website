@@ -7,6 +7,7 @@
         "@sveltejs/adapter-static": "^3.0.8",
         "just-curves": "^0.2.0",
         "serve": "^14.2.4",
+        "tailwind-merge": "^3.2.0",
       },
       "devDependencies": {
         "@eslint/compat": "^1.2.8",
@@ -624,6 +625,8 @@
     "svelte-eslint-parser": ["svelte-eslint-parser@1.1.2", "", { "dependencies": { "eslint-scope": "^8.2.0", "eslint-visitor-keys": "^4.0.0", "espree": "^10.0.0", "postcss": "^8.4.49", "postcss-scss": "^4.0.9", "postcss-selector-parser": "^7.0.0" }, "peerDependencies": { "svelte": "^3.37.0 || ^4.0.0 || ^5.0.0" }, "optionalPeers": ["svelte"] }, "sha512-vqFBRamDKo1l70KMfxxXj1/0Cco5TfMDnqaAjgz6D8PyoMhfMcDOLRkAwPg8WkMyZjMtQL3wW66TZ0x59iqO2w=="],
 
     "svelte-google-materialdesign-icons": ["svelte-google-materialdesign-icons@1.0.5", "", { "peerDependencies": { "svelte": "^4.0.0 || ^5.0.0" } }, "sha512-9NfcHo5mouOs+k64JMx+O5/duIQXdnsoQcYIM5C/j+66cmmwQG+Q7tuzClNW72/LAt+AXkam+STxMYEJEfo9wQ=="],
+
+    "tailwind-merge": ["tailwind-merge@3.2.0", "", {}, "sha512-FQT/OVqCD+7edmmJpsgCsY820RTD5AkBryuG5IUqR5YQZSdj5xlH5nLgH7YPths7WsLPSpSBNneJdM8aS8aeFA=="],
 
     "tailwindcss": ["tailwindcss@4.1.1", "", {}, "sha512-QNbdmeS979Efzim2g/bEvfuh+fTcIdp1y7gA+sb6OYSW74rt7Cr7M78AKdf6HqWT3d5AiTb7SwTT3sLQxr4/qw=="],
 
