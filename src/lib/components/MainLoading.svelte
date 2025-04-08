@@ -59,7 +59,7 @@
 		<div class="grid grid-flow-col-dense flex-row gap-x-1 self-center">
 			{#each Array(7)
 				.fill(0)
-				.map((_, i) => i) as i}
+				.map((_, i) => i) as i (i)}
 				<svg
 					width="20"
 					height="43"

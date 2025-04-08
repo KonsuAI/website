@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { Component, Snippet } from 'svelte';
 	import Right, {
 		type ChevronRightProps
 	} from 'svelte-google-materialdesign-icons/Chevron_right.svelte';
