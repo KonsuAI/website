@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import Logo from '$lib/components/Logo.svelte';
+	import Logo from '../../assets/Logo.svg?component';
 	import Page from '$lib/components/Page.svelte';
 </script>
 

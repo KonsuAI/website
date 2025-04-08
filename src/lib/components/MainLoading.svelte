@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import Logo from './Logo.svelte';
+	import Logo from '../../assets/Logo.svg?component';
 	import { onMount } from 'svelte';
 	import { backOut } from 'svelte/easing';
 	import { easeOut } from 'just-curves';

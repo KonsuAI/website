@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Component } from 'svelte';
 	import Right, {
 		type ChevronRightProps
 	} from 'svelte-google-materialdesign-icons/Chevron_right.svelte';
@@ -14,7 +15,7 @@
 		class?: string;
 		textClass?: string;
 		iconContainerClass?: string;
-		icon?: any;
+		icon?: Component;
 		iconProps?: Partial<ChevronRightProps>;
 		label: string;
 		onclick?: () => void;
