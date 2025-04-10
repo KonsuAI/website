@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Right, {
-		type ChevronRightProps
-	} from 'svelte-google-materialdesign-icons/Chevron_right.svelte';
+	import type { SVGAttributes } from 'svelte/elements';
+	import Right from '~icons/mdi/arrow-right-thick';
+
 	let {
 		class: className = '',
 		textClass = '',
@@ -15,12 +15,12 @@
 		textClass?: string;
 		iconContainerClass?: string;
 		icon?: any;
-		iconProps?: Partial<ChevronRightProps>;
+		iconProps?: Partial<SVGAttributes<SVGElement>>;
 		label: string;
 		onclick?: () => void;
 	} = $props();
 
-	const ICON_SIZE = '2em';
+	const ICON_SIZE = '1.78rem';
 </script>
 
 <button
@@ -33,12 +33,12 @@
 		<div
 			class="bg-konsu-text-dark/20 aspect-square w-fit self-end rounded-full p-3 {iconContainerClass}"
 		>
-			<Icon size={ICON_SIZE} variation="filled" color="#1D1B20" {...iconProps} />
+			<Icon width={ICON_SIZE} height={ICON_SIZE} color="#1D1B20" {...iconProps} />
 		</div>
 	{:else}
 		<div></div>
 	{/if}
 	<div class="self-end p-3">
-		<Right ariaLabel="Go" size={ICON_SIZE} color="#1D1B20" {...iconProps} />
+		<Right width={ICON_SIZE} height={ICON_SIZE} color="#1D1B20" {...iconProps} />
 	</div>
 </button>

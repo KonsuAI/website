@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Send from 'svelte-google-materialdesign-icons/Send.svelte';
+	import Send from '~icons/mdi/send';
 	import type { EventHandler } from 'svelte/elements';
 	import { twMerge } from 'tailwind-merge';
 
@@ -9,6 +9,8 @@
 	}
 
 	const { onsubmit, class: classList }: Props = $props();
+	// TODO: Hover animation here for the send button.
+	// TODO: Press enter to send a new chat on desktop, shift-enter for a new line.
 </script>
 
 <div
@@ -30,7 +32,7 @@
 				type="submit"
 				aria-label="Send message."
 			>
-				<Send size="1.5em" color="rgb(76, 91, 113)" />
+				<Send width="1.3rem" height="1.3rem" color="rgb(76, 91, 113)" />
 			</button>
 		</div>
 	</form>

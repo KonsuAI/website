@@ -3,11 +3,11 @@
 	import ButtonPanel from '$lib/components/ButtonPanel.svelte';
 	import Page from '$lib/components/Page.svelte';
 
-	import Calendar from 'svelte-google-materialdesign-icons/Calendar_today.svelte';
-	import Edit from 'svelte-google-materialdesign-icons/Edit.svelte';
-	import Archive from 'svelte-google-materialdesign-icons/Archive.svelte';
-	import StickyNote from 'svelte-google-materialdesign-icons/Sticky_note_2.svelte';
-	import AddCircle from 'svelte-google-materialdesign-icons/Add_circle_outline.svelte';
+	import Calendar from '~icons/mdi/calendar-clock';
+	import Edit from '~icons/mdi/file-document-edit';
+	import Archive from '~icons/mdi/archive';
+	import StickyNote from '~icons/mdi/sticker-emoji';
+	import AddCircle from '~icons/mdi/add-circle-outline';
 </script>
 
 <Page title="Welcome back traveller!">
