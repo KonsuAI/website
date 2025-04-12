@@ -1,9 +1,9 @@
-import SubwayVariant from "svelte-material-icons/SubwayVariant.svelte";
-import Airplane from "svelte-material-icons/Airplane.svelte";
-import Ferry from "svelte-material-icons/Ferry.svelte";
-import Bus from "svelte-material-icons/Bus.svelte";
-import Train from "svelte-material-icons/Train.svelte";
-import Walk from "svelte-material-icons/Walk.svelte";
+import SubwayVariant from "~icons/mdi/subway-variant";
+import Airplane from "~icons/mdi/airplane";
+import Ferry from "~icons/mdi/ferry";
+import Bus from "~icons/mdi/bus";
+import Train from "~icons/mdi/train";
+import Walk from "~icons/mdi/walk";
 import type { DateTime } from "luxon";
 
 export enum TransportType {
