@@ -6,22 +6,24 @@
 	interface Props {
 		onsubmit?: EventHandler<SubmitEvent, HTMLFormElement>;
 		class?: string;
+		placeholder: string;
 	}
 
-	const { onsubmit, class: classList }: Props = $props();
+	const { onsubmit, placeholder, class: classList }: Props = $props();
+
 	// TODO: Hover animation here for the send button.
 	// TODO: Press enter to send a new chat on desktop, shift-enter for a new line.
 </script>
 
 <div
 	class={twMerge(
-		'bg-konsu-light-01 border-konsu-light-02 ui-glow mb-5 h-fit w-full rounded-3xl border-2 p-4 focus-within:border-[#ffffff]',
+		'bg-konsu-light-01 border-konsu-light-02 ui-glow my-5 h-fit w-full rounded-3xl border-2 p-4 focus-within:border-[#ffffff]',
 		classList
 	)}
 >
 	<form {onsubmit} class="grid grid-cols-[1fr_max-content]">
 		<textarea
-			placeholder="Where can I take you?"
+			{placeholder}
 			name="prompt"
 			class="box-border field-sizing-content h-max max-h-75 w-full max-w-full resize-none outline-none"
 		></textarea>

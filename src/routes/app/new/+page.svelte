@@ -26,6 +26,7 @@
 	</div>
 
 	<AiInput
+		placeholder="Where can I take you?"
 		onsubmit={function (e) {
 			e.preventDefault();
 			console.log(this);

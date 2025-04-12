@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Component } from 'svelte';
 	import type { SVGAttributes } from 'svelte/elements';
 	import Right from '~icons/mdi/arrow-right-thick';
 
@@ -14,7 +15,7 @@
 		class?: string;
 		textClass?: string;
 		iconContainerClass?: string;
-		icon?: any;
+		icon?: Component;
 		iconProps?: Partial<SVGAttributes<SVGElement>>;
 		label: string;
 		onclick?: () => void;
