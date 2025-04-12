@@ -4,6 +4,7 @@ import Ferry from "svelte-material-icons/Ferry.svelte";
 import Bus from "svelte-material-icons/Bus.svelte";
 import Train from "svelte-material-icons/Train.svelte";
 import Walk from "svelte-material-icons/Walk.svelte";
+import type { DateTime } from "luxon";
 
 export enum TransportType {
 	Bus = "bus",
@@ -29,4 +30,11 @@ export function getTransportIcon(type: TransportType) {
 		case TransportType.Boat:
 			return Ferry;
 	}
+}
+
+export interface TransportStop {
+	expected: DateTime;
+	planned: DateTime;
+	name: string;
+	platform?: string;
 }
