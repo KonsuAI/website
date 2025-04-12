@@ -33,7 +33,7 @@ export function getTransportIcon(type: TransportType) {
 }
 
 export interface TransportStop {
-	expected: DateTime;
+	expected?: DateTime;
 	planned: DateTime;
 	name: string;
 	platform?: string;

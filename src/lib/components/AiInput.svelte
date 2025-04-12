@@ -17,7 +17,7 @@
 
 <div
 	class={twMerge(
-		'bg-konsu-light-01 border-konsu-light-02 ui-glow mb-5 h-fit w-full rounded-3xl border-2 p-4 focus-within:border-[#ffffff]',
+		'bg-konsu-light-01 border-konsu-light-02 ui-glow my-5 h-fit w-full rounded-3xl border-2 p-4 focus-within:border-[#ffffff]',
 		classList
 	)}
 >
