@@ -49,7 +49,7 @@
 			{/if}
 
 			<!-- <div class="ml-8 grid grid-cols-2 place-items-center text-2xl"> -->
-			<div class="grid grid-cols-[max-content_max-content] place-items-center text-lg">
+			<div class="grid grid-cols-[max-content_max-content] place-items-center gap-2 text-lg">
 				{@render org?.()}
 				<span>{from}</span>
 			</div>

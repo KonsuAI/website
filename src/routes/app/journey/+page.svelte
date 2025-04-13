@@ -5,6 +5,7 @@
 	import TransportLink from '$lib/components/trips/TransportLink.svelte';
 	import { TransportType } from '$lib/transport';
 	import Ryanair from '../../../assets/org/Ryanair.svg?component';
+	import ElizabethLine from '../../../assets/org/ElizabethLine.svg?component';
 	import NationalRail from '../../../assets/org/NationalRail.svg?component';
 	import { DateTime } from 'luxon';
 
@@ -66,7 +67,7 @@
 			to="LST"
 		>
 			{#snippet org()}
-				<NationalRail class="size-9" />
+				<ElizabethLine class="size-9" />
 			{/snippet}
 
 			<button class="bg-konsu-light-01 mb-4 w-full cursor-pointer rounded-xl p-4 text-xl font-bold"
