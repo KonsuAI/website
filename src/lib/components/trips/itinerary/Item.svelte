@@ -6,7 +6,7 @@
 </script>
 
 <button
-	class="relative h-full w-84 snap-center overflow-hidden rounded-3xl text-left"
+	class="relative h-full w-84 cursor-pointer snap-center overflow-hidden rounded-3xl text-left"
 	onclick={() => goto('/app/journey')}
 >
 	<img
