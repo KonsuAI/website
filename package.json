@@ -42,7 +42,7 @@
   "dependencies": {
     "@sveltejs/adapter-static": "^3.0.8",
     "@types/luxon": "^3.6.2",
-    "cookie": "^1.0.2",
+    "cookie": "^0.7.0",
     "dompurify": "^3.2.5",
     "just-curves": "^0.2.0",
     "luxon": "^3.6.1",
