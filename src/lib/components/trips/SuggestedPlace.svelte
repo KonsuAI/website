@@ -3,7 +3,7 @@
 	let loaded = $state(false);
 </script>
 
-<div class="relative aspect-[2/1] w-full overflow-hidden rounded-3xl">
+<div class="relative aspect-[2/1] w-48 overflow-hidden rounded-3xl">
 	<img
 		class="absolute top-0 left-0 h-full w-full object-cover"
 		src={imageUrl}
