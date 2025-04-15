@@ -16,6 +16,9 @@
     --drop-shadow-box: 2px 4px 0 #1D1B20; 
     --drop-shadow-box-md-3:  0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.30);
 
+
+    --konsu-cyan: #72D4E8;
+    --konsu-cyan-n01: #66B6C6FF;
 }
 
 @layer base {

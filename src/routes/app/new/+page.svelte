@@ -9,22 +9,30 @@
 	import { marked } from 'marked';
 	import DOMPurify, { type DOMPurify as _DOMPurify } from 'dompurify';
 	import { onMount } from 'svelte';
+	import { Conversation } from '$lib/net/api';
 
 	let purifier: _DOMPurify = $state(null as any);
 
 	onMount(() => {
 		purifier = DOMPurify(window);
+
+		(window as any).Conversation = Conversation;
 	});
 
 	let messages: { text: string; user: boolean }[] = $state([]);
 	let main: HTMLDivElement;
 	let isScrolledToBottom = $state(false);
+	let conversation: Conversation | null = $state(null);
 	$effect.pre(() => {});
 
 	$effect(() => {
 		if (isScrolledToBottom) {
 			main.scrollTop = main.scrollHeight - main.clientHeight;
 		}
+
+		Conversation.new(Math.floor(Math.random() * 1000).toString()).then(
+			(convo) => (conversation = convo)
+		);
 	});
 
 	let currentMessage: string = $state('');
@@ -32,7 +40,22 @@
 		e.preventDefault();
 		isScrolledToBottom = main?.scrollHeight - main?.clientHeight <= main?.scrollTop + 10;
 
+		if (currentMessage.trim() == '') {
+			return;
+		}
 		messages.push({ text: currentMessage, user: true });
+
+		let obj = { text: '', user: false };
+		messages.push(obj);
+
+		conversation?.send({ prompt: currentMessage }, (response) => {
+			console.log(response);
+			if (response.message) {
+				obj.text += response.message;
+			}
+			messages[messages.length - 1] = obj;
+		});
+
 		currentMessage = '';
 	};
 </script>
@@ -74,14 +97,22 @@
 			<h3 class="text-konsu-light-00 text-xl">Otherwise, start typing.</h3>
 		{/if}
 		{#each messages as { text, user }, i (i)}
-			<div
-				class={twMerge(
-					'select bg-konsu-dark-01 prose max-w-[80%] rounded-3xl px-4 py-2 leading-none text-white word-break-break-word',
-					user ? 'justify-self-end' : ''
-				)}
-			>
-				{@html marked(text, { async: false })}
-			</div>
+			{#if user}
+				<div
+					class={twMerge(
+						'select bg-konsu-dark-01 prose word-break-break-word dark:prose-invert max-w-[80%] rounded-3xl px-4 py-2 leading-none',
+						user ? 'justify-self-end' : ''
+					)}
+				>
+					{@html marked(text, { async: false })}
+				</div>
+			{:else}
+				<div
+					class="select prose word-break-break-word dark:prose-invert my-2 max-w-[80%] leading-none"
+				>
+					{@html marked(text, { async: false })}
+				</div>
+			{/if}
 		{/each}
 	</main>
 
@@ -95,6 +126,7 @@
 		<textarea
 			class="placeholder:text-konsu-light-00 col-start-1 box-border field-sizing-content h-max max-h-75 w-full max-w-full resize-none px-1 leading-[1.1] outline-0 outline-none placeholder:italic"
 			placeholder="Where can I take you?"
+			disabled={conversation == null}
 			bind:value={currentMessage}
 		></textarea>
 		<button
