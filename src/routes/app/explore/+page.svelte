@@ -42,7 +42,7 @@
 		placeholder="Got some ideas?"
 		onsubmit={function (e) {
 			e.preventDefault();
-			console.log(this);
+			goto('/app/new');
 		}}
 	/>
 </Page>
