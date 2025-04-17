@@ -20,7 +20,7 @@
 
 <button
 	class={twMerge(
-		'relative h-full w-84 cursor-pointer snap-center overflow-hidden rounded-3xl text-left',
+		'relative h-full w-full cursor-pointer snap-center overflow-hidden rounded-3xl text-left',
 		className
 	)}
 	{onclick}

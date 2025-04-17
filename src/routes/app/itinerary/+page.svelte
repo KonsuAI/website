@@ -6,7 +6,9 @@
 </script>
 
 <Page class="grid grid-rows-[max-content_1fr_max-content]" title="Here's your plan!">
-	<div class="grid snap-x snap-mandatory grid-flow-col gap-4 overflow-x-scroll rounded-3xl">
+	<div
+		class="grid snap-x snap-mandatory auto-cols-[calc(100%-3em)] grid-flow-col gap-4 overflow-x-scroll rounded-3xl"
+	>
 		<Item
 			title="Your Holiday to Friuli-Venezia Giulia, Italy"
 			imageUrl="https://s3-alpha-sig.figma.com/img/17bf/c79b/0ead6ea4d0eb12198e00da2862767ce8?Expires=1745798400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=lkFdhtGFY6dZkNL3aiK1r7J6rWPea0AAcGhm98v0jJiQ-K0uSIARM9zo-v~~S9VWssgOMz5OlaTd183-6tl0hg9w0PAXzaO9W6hbx3gLikbHQwDv79VUtXC26mtu7ogS1JfdQkm2PkO2~94pGG8PHvkRyqay66qTmr8Xgq-kJg6TnAzqdeT2rW93XXAEaSZgH4V4t9niQ5HIlvb4gAYMamVyqbgHffo52NcPzT5krNJcdKeOZTMOIhL2h~1i1dm~ev4KQauNaxA4CdNd88Bhu-IhDHFdR9qTK1MtdLKqghZwptQmAFdhg5MLuNXqdMEDsgNicKNtyR0Blwsv2Dbs3g__"

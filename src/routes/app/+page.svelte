@@ -10,7 +10,13 @@
 	import AddCircle from '~icons/mdi/add-circle-outline';
 </script>
 
-<Page title="Welcome back traveller!">
+<Page title="Welcome traveller!" class="grid grid-rows-[1fr_max-content]">
+	{#snippet header()}
+		<div class="place-self-center">
+			<h1 class="text-center text-5xl">Welcome back, traveller</h1>
+		</div>
+	{/snippet}
+
 	<div class="grid grid-cols-2 gap-4">
 		<ButtonPanel
 			label="Plan a trip"

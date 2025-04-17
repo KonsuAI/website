@@ -10,7 +10,7 @@
 		to?: string;
 	}
 
-	let { stops, pos, to }: Props = $props();
+	const { stops, pos, to }: Props = $props();
 </script>
 
 {#if to}
