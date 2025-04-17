@@ -14,7 +14,7 @@
 
 <Page
 	class="grid h-screen max-h-screen grid-rows-[max-content_1fr_max-content]"
-	title="Welcome back, traveller"
+	title="Your Travel Plan"
 >
 	<div class="flex w-full flex-col gap-4 overflow-y-scroll">
 		<TransportLink
