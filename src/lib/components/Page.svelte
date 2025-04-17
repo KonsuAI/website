@@ -11,7 +11,7 @@
 	const { children, class: classList, title }: Props = $props();
 </script>
 
-<div class="flex h-screen w-screen overflow-hidden">
+<div class="flex h-screen max-h-screen w-screen max-w-screen overflow-hidden">
 	<div class={twMerge('m-4 my-2 w-sm md:mx-auto', classList)}>
 		<div class="mb-8 w-full">
 			<h1 class="w-full text-center text-3xl font-bold">{title ?? 'Welcome back traveller!'}</h1>

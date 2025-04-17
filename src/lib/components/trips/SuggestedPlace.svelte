@@ -1,9 +1,16 @@
 <script lang="ts">
-	let { imageUrl, title, meta }: { imageUrl: string; title: string; meta: string } = $props();
+	import { twMerge } from 'tailwind-merge';
+
+	let {
+		imageUrl,
+		title,
+		meta,
+		class: className
+	}: { imageUrl: string; title: string; meta: string; class?: string } = $props();
 	let loaded = $state(false);
 </script>
 
-<div class="relative aspect-[2/1] w-48 overflow-hidden rounded-3xl">
+<div class={twMerge('relative aspect-[2/1] w-48 overflow-hidden rounded-3xl text-2xl ', className)}>
 	<img
 		class="absolute top-0 left-0 h-full w-full object-cover"
 		src={imageUrl}
@@ -14,7 +21,7 @@
 		<div class="bg-konsu-dark-00/35 absolute top-0 left-0 h-full w-full">
 			<div class="grid h-full grid-cols-1 p-4">
 				<div class="self-end">
-					<h3 class="text-2xl font-bold">{title}</h3>
+					<h3 class="font-bold">{title}</h3>
 					<div class="meta">{meta}</div>
 				</div>
 			</div>

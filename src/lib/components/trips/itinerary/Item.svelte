@@ -1,13 +1,29 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import type { MouseEventHandler } from 'svelte/elements';
+	import { twMerge } from 'tailwind-merge';
 
-	let { imageUrl, title, meta }: { imageUrl: string; title: string; meta: string } = $props();
+	let {
+		imageUrl,
+		title,
+		meta,
+		class: className,
+		onclick
+	}: {
+		imageUrl: string;
+		title: string;
+		meta: string;
+		class?: string;
+		onclick?: MouseEventHandler<HTMLButtonElement>;
+	} = $props();
 	let loaded = $state(false);
 </script>
 
 <button
-	class="relative h-full w-84 cursor-pointer snap-center overflow-hidden rounded-3xl text-left"
-	onclick={() => goto('/app/journey')}
+	class={twMerge(
+		'relative h-full w-84 cursor-pointer snap-center overflow-hidden rounded-3xl text-left',
+		className
+	)}
+	{onclick}
 >
 	<img
 		class="h-full w-full object-cover"
