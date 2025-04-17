@@ -17,7 +17,7 @@
 		</div>
 	{/snippet}
 
-	<div class="grid grid-cols-2 gap-4">
+	<div class="mb-4 grid grid-cols-2 gap-4">
 		<ButtonPanel
 			label="Plan a trip"
 			class="col-start-1 col-end-3 aspect-[2/1] bg-[#65558F]"
