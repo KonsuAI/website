@@ -10,6 +10,7 @@
 	import { Conversation as LlmConversation } from '$lib/net/api';
 	import ChatFilter from '$lib/components/chat/ChatFilter.svelte';
 	import { Message } from '$lib/components/chat';
+	import Back from '$lib/components/Back.svelte';
 
 	let messages: { text: string; user: boolean }[] = $state([]);
 	let main: HTMLElement;
@@ -56,11 +57,7 @@
 <div class="grid h-[100dvh] w-screen grid-flow-row grid-rows-[auto_1fr_auto] transition-all">
 	<!-- Back button -->
 	<div class="bg-konsu-dark-01 grid min-h-12 items-center px-3">
-		<button type="button" onclick={() => history.back()}>
-			<!-- TODO: Back button doesn't have an animation, because apparently,
-             my hacky code doesn't listen for onpopstate or something... -->
-			<ArrowLeft width="2rem" height="2rem" />
-		</button>
+		<Back />
 	</div>
 
 	<!-- Main content -->
@@ -91,7 +88,7 @@
 					meta="2 Nights · £77/pp"
 				/>
 			</div>
-			<hr class="mt-4 my-2 border-t-2 border-dotted" />
+			<hr class="my-2 mt-4 border-t-2 border-dotted" />
 
 			<span class="text-konsu-light-00 text-xl">
 				Or, let us plan your perfect holiday by sending a message below.
