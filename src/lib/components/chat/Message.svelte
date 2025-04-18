@@ -57,7 +57,7 @@
 
 <div
 	class={twMerge(
-		'select prose word-break-break-word prose-invert max-w-[80%] leading-none',
+		'select prose prose-lg md:prose-base word-break-break-word prose-invert max-w-[80%] leading-none',
 		user ? 'bg-konsu-dark-01 justify-self-end rounded-3xl px-4 py-2' : 'my-2'
 	)}
 >

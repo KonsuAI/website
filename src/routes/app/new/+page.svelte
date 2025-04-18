@@ -73,7 +73,7 @@
 				height="3.5rem"
 				class="animate-once animate-pulse place-self-center"
 			/>
-			<h3 class="place-self-center text-center text-3xl font-bold">Welcome back, traveller.</h3>
+			<h3 class="place-self-center text-center text-3xl font-bold">A New Voyage.</h3>
 			<hr class="my-2 border-t-2 border-dotted" />
 			<span class="text-konsu-light-00 mb-4 text-xl leading-none">
 				Here are some packages we think you'd like.
