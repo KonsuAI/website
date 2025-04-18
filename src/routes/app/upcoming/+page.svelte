@@ -9,7 +9,7 @@
 	<div class="overflow-y-scroll">
 		<button class="w-full cursor-pointer text-left" onclick={() => goto('/app/itinerary')}>
 			<SuggestedPlace
-				class="w-full"
+				class="aspect-[2/1] w-full"
 				title="Amalfi Coast"
 				imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Costiera_amalfitana_-mix-_2019_by-RaBoe_599.jpg/1920px-Costiera_amalfitana_-mix-_2019_by-RaBoe_599.jpg"
 				meta="1st to 6th June"
