@@ -6,10 +6,10 @@ module.exports = {
                 css: {
                     color: "white",
                     a: {
-                        color: 'var(--konsu-cyan)',
+                        color: 'var(--color-konsu-cyan)',
                         transition: 'color 200ms linear',
                         '&:hover': {
-                            color: 'var(--konsu-cyan-n01)',
+                            color: 'var(--color-konsu-cyan-n01)',
                         },
                     },
                 },

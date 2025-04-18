@@ -2,27 +2,22 @@
 	import SuggestedPlace from '$lib/components/trips/SuggestedPlace.svelte';
 	import ArrowLeft from '~icons/mdi/arrow-left';
 	import Send from '~icons/mdi/send';
-	import Group from '~icons/mdi/user-group';
-	import Money from '~icons/mdi/money';
-	import Filter from '~icons/mdi/filter';
-	import { twMerge } from 'tailwind-merge';
-	import { marked } from 'marked';
-	import DOMPurify, { type DOMPurify as _DOMPurify } from 'dompurify';
-	import { onMount } from 'svelte';
-	import { Conversation } from '$lib/net/api';
 
-	let purifier: _DOMPurify = $state(null as any);
+	import { twMerge } from 'tailwind-merge';
+	import { onMount } from 'svelte';
+	import { Conversation as LlmConversation } from '$lib/net/api';
+	import { writable } from 'svelte/store';
+	import ChatFilter from '$lib/components/chat/ChatFilter.svelte';
+	import { Message } from '$lib/components/chat';
 
 	onMount(() => {
-		purifier = DOMPurify(window);
-
-		(window as any).Conversation = Conversation;
+		(window as any).Conversation = LlmConversation;
 	});
 
 	let messages: { text: string; user: boolean }[] = $state([]);
-	let main: HTMLDivElement;
+	let main: HTMLElement;
 	let isScrolledToBottom = $state(false);
-	let conversation: Conversation | null = $state(null);
+	let conversation: LlmConversation | null = $state(null);
 	$effect.pre(() => {});
 
 	$effect(() => {
@@ -30,7 +25,7 @@
 			main.scrollTop = main.scrollHeight - main.clientHeight;
 		}
 
-		Conversation.new(Math.floor(Math.random() * 1000).toString()).then(
+		LlmConversation.new(Math.floor(Math.random() * 1000).toString()).then(
 			(convo) => (conversation = convo)
 		);
 	});
@@ -96,23 +91,8 @@
 			</div>
 			<h3 class="text-konsu-light-00 text-xl">Otherwise, start typing.</h3>
 		{/if}
-		{#each messages as { text, user }, i (i)}
-			{#if user}
-				<div
-					class={twMerge(
-						'select bg-konsu-dark-01 prose word-break-break-word dark:prose-invert max-w-[80%] rounded-3xl px-4 py-2 leading-none',
-						user ? 'justify-self-end' : ''
-					)}
-				>
-					{@html marked(text, { async: false })}
-				</div>
-			{:else}
-				<div
-					class="select prose word-break-break-word dark:prose-invert my-2 max-w-[80%] leading-none"
-				>
-					{@html marked(text, { async: false })}
-				</div>
-			{/if}
+		{#each messages as { text: markdown, user }, i (i)}
+			<Message {user} {markdown} />
 		{/each}
 	</main>
 
@@ -140,21 +120,15 @@
 		<div
 			class="width-full col-start-1 col-end-3 grid auto-cols-max grid-flow-col gap-2 overflow-x-auto pb-2"
 		>
-			<div
-				class="border-konsu-light-02 flex flex-row items-center rounded-full border-2 px-2 py-0.5"
-			>
-				<Filter class="mr-1" width="1.5rem" height="1.5rem" />
-			</div>
-			<div
-				class="border-konsu-light-02 flex flex-row items-center rounded-full border-2 px-2 py-0.5"
-			>
-				<Money class="mr-1" width="1.5rem" height="1.5rem" /> Budget
-			</div>
-			<div
-				class="border-konsu-light-02 flex flex-row items-center rounded-full border-2 px-2 py-0.5"
-			>
-				<Group class="mr-1" width="1.5rem" height="1.5rem" /> Group Size
-			</div>
+			<ChatFilter kind="FILTER" />
+			<ChatFilter kind="BUDGET" />
+			<ChatFilter kind="GROUP" />
 		</div>
 	</div>
 </div>
+
+<style>
+	:global(konsu-insert) {
+		display: contents;
+	}
+</style>

@@ -15,7 +15,7 @@ export class Conversation {
     send(
         contents: { prompt: string },
         fragment: (
-            response: { message: string } | { turn_complete: boolean },
+            response: { message?: string; turn_complete?: boolean },
         ) => void,
     ): Promise<unknown> {
         const { promise, resolve, reject } = Promise.withResolvers();
