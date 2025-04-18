@@ -10,7 +10,7 @@
 	let loaded = $state(false);
 </script>
 
-<div class={twMerge('relative aspect-[2/1] w-48 overflow-hidden rounded-3xl text-2xl ', className)}>
+<div class={twMerge('relative w-fit min-w-48 overflow-hidden rounded-3xl text-2xl ', className)}>
 	<img
 		class="absolute top-0 left-0 h-full w-full object-cover"
 		src={imageUrl}

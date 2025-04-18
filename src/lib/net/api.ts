@@ -39,18 +39,22 @@ export class Conversation {
         return promise;
     }
 
-    static async new(session_id: string): Promise<Conversation> {
+    static async new(
+        session_id: string = Math.floor(Math.random() * 1000).toString(),
+    ): Promise<Conversation> {
         const ctx = {};
+
+        const { promise: connect, resolve: resolve, reject } = Promise
+            .withResolvers();
+
         const socket = new WebSocket(
             `${BASE_URL}/ws/conversation/${session_id}`,
         );
-
         // Wait to connect...
-        const { promise, resolve, reject } = Promise.withResolvers();
         socket.addEventListener("open", resolve, { once: true });
         socket.addEventListener("error", reject, { once: true });
-        await promise;
 
+        await connect;
         return new Conversation(ctx, socket);
     }
 }

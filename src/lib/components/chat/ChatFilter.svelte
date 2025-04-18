@@ -52,7 +52,7 @@
 <button
 	type="button"
 	class={twMerge(
-		'flex w-max flex-row items-center rounded-full border-2 border-amber-50 px-2 py-[6px] font-bold cursor-pointer',
+		'flex w-max cursor-pointer flex-row items-center rounded-full border-2 border-amber-50 px-2 py-[6px] font-bold',
 		inline ? 'my-1 inline-flex align-middle' : 'flex'
 	)}
 >
