@@ -139,6 +139,7 @@
 				<ChatFilter kind="GROUP" />
 			</div>
 		{:catch error}
+			{@const _ = alert(`${error.toString()}`)}
 			<div class="flex min-h-24 flex-col items-center place-self-center">
 				<Error width="1.5rem" height="1.5rem" />
 				There was an error whilst connecting to the AI. Please try again.
