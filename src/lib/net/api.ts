@@ -1,60 +1,46 @@
-/* eslint-disable @typescript-eslint/no-namespace */
+import { type _SSEvent, SSE } from "sse.js";
 
-export const BASE_URL = "wss://api.konsu.ai";
+export const BASE_URL = "https://api.konsu.ai";
 
 type Ctx = Record<string, unknown>;
-export class Conversation {
+export class Chat {
     ctx: Ctx;
-    socket: WebSocket;
+    session_id: string;
 
-    private constructor(ctx: Ctx, socket: WebSocket) {
+    private constructor(ctx: Ctx, session_id: string) {
         this.ctx = ctx;
-        this.socket = socket;
+        this.session_id = session_id;
     }
 
     send(
         contents: { prompt: string },
         fragment: (
-            response: { message?: string; turn_complete?: boolean },
+            response: string,
         ) => void,
-    ): Promise<unknown> {
-        const { promise, resolve, reject } = Promise.withResolvers();
-
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
-        const that = this;
-        this.socket.addEventListener(
-            "message",
-            function (this: WebSocket, msg) {
-                if (msg.data?.turn_complete) {
-                    that.socket.removeEventListener("message", this);
-                    return resolve(void 0);
-                }
-
-                const data = JSON.parse(msg.data);
-                fragment(data);
-            },
-        );
-        this.socket.addEventListener("error", reject, { once: true });
-        this.socket.send(JSON.stringify(contents));
-        return promise;
+    ): Promise<void> {
+        return new Promise((resolve, reject) => {
+            const events = new SSE(`${BASE_URL}/chat/${this.session_id}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                payload: JSON.stringify(contents),
+            });
+            events.addEventListener("message", (ev: _SSEvent) => {
+                const response = JSON.parse(ev.data);
+                fragment(response);
+            });
+            events.addEventListener("turn_complete", () => resolve());
+            events.addEventListener("error", (err: unknown) => reject(err));
+        });
     }
 
-    static async new(
-        session_id: string = Math.floor(Math.random() * 1000).toString(),
-    ): Promise<Conversation> {
+    static async new(): Promise<Chat> {
         const ctx = {};
+        const { session_id } = await fetch(`${BASE_URL}/chat/new`).then((res) =>
+            res.json()
+        ) as { session_id: string };
 
-        const { promise: connect, resolve: resolve, reject } = Promise
-            .withResolvers();
+        console.log({ session_id });
 
-        const socket = new WebSocket(
-            `${BASE_URL}/ws/conversation/${session_id}`,
-        );
-        // Wait to connect...
-        socket.addEventListener("open", resolve, { once: true });
-        socket.addEventListener("error", reject, { once: true });
-
-        await connect;
-        return new Conversation(ctx, socket);
+        return new Chat(ctx, session_id);
     }
 }

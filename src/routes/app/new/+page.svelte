@@ -7,7 +7,7 @@
 	import CompassRose from '~icons/mdi/compass-rose';
 	import Loading from '~icons/mdi/loading';
 
-	import { Conversation as LlmConversation } from '$lib/net/api';
+	import { Chat as LlmConversation } from '$lib/net/api';
 	import ChatFilter from '$lib/components/chat/ChatFilter.svelte';
 	import { Message } from '$lib/components/chat';
 	import Back from '$lib/components/Back.svelte';
@@ -43,9 +43,9 @@
 		messages.push(obj);
 
 		conversation?.send({ prompt: currentMessage }, (response) => {
-			console.log(response);
-			if (response.message) {
-				obj.text += response.message;
+			console.log({ response });
+			if (response) {
+				obj.text += response;
 			}
 			messages[messages.length - 1] = obj;
 		});
