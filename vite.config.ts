@@ -6,7 +6,4 @@ import svg from "@poppanator/sveltekit-svg";
 
 export default defineConfig({
 	plugins: [tailwindcss(), sveltekit(), Icons({ compiler: "svelte" }), svg()],
-	build: {
-		target: "ES6",
-	},
 });
