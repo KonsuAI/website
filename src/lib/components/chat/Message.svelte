@@ -31,17 +31,13 @@
 				return `<div>${a}</div>`;
 			},
 			setup: (el) => {
-				const components = el
-					.querySelectorAll(TAG_NAME)
-					.entries()
-					.map(([i, el]) => {
-						const { kind } = extract(el);
-						return mount(ChatFilter, {
-							target: el,
-							props: { kind }
-						});
-					})
-					.toArray();
+				const components = Array.from(el.querySelectorAll(TAG_NAME)).map((el) => {
+					const { kind } = extract(el);
+					return mount(ChatFilter, {
+						target: el,
+						props: { kind }
+					});
+				});
 				return () => components.forEach((comp) => unmount(comp));
 			}
 		};
