@@ -1,6 +1,5 @@
 <script lang="ts">
 	import SuggestedPlace from '$lib/components/trips/SuggestedPlace.svelte';
-	import ArrowLeft from '~icons/mdi/arrow-left';
 	import Error from '~icons/mdi/error';
 	import Send from '~icons/mdi/send';
 	import ArrowDown from '~icons/mdi/arrow-down';
