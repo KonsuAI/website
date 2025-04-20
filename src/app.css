@@ -48,10 +48,10 @@
     }
 
     .select {
-        -webkit-user-select: initial;
-        -moz-user-select: initial;
-        -ms-user-select: initial;
-        user-select: initial;
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
     }
 
     .ui-glow-reset {
@@ -70,3 +70,5 @@
         word-break: break-word;
     }
 }
+
+@plugin 'tailwind-scrollbar';
