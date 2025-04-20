@@ -8,8 +8,11 @@
 
 	import { Chat as LlmConversation } from '$lib/net/api';
 	import ChatFilter from '$lib/components/chat/ChatFilter.svelte';
-	import { Message } from '$lib/components/chat';
+	import Message from '$lib/components/chat/Message.svelte';
 	import Back from '$lib/components/Back.svelte';
+	import { setContext } from 'svelte';
+	import type { EmbedContext, Embed } from '$lib/components/chat';
+	import { writable, type Writable } from 'svelte/store';
 
 	let messages: { text: string; user: boolean }[] = $state([]);
 	let main: HTMLElement;
@@ -29,6 +32,13 @@
 	});
 
 	let currentMessage: string = $state('');
+	const embeds: Writable<EmbedContext> = setContext(
+		'embed_ctx',
+		writable({
+			embeds: [],
+			current_index: 0
+		})
+	);
 	const sendMessage = (conversation: LlmConversation) => (e: MouseEvent) => {
 		e.preventDefault();
 		isScrolledToBottom = main?.scrollHeight - main?.clientHeight <= main?.scrollTop + 10;
@@ -41,13 +51,23 @@
 		let obj = { text: '', user: false };
 		messages.push(obj);
 
-		conversation?.send({ prompt: currentMessage }, (response) => {
-			console.log({ response });
-			if (response) {
-				obj.text += response;
+		conversation?.send(
+			{ prompt: currentMessage },
+			(response) => {
+				console.log({ response });
+				if (response) {
+					obj.text += response;
+				}
+				messages[messages.length - 1] = obj;
+			},
+			(embed) => {
+				console.log({ got_embed: embed });
+				embeds.update((ctx) => {
+					ctx.embeds.push(embed);
+					return ctx;
+				});
 			}
-			messages[messages.length - 1] = obj;
-		});
+		);
 
 		currentMessage = '';
 	};

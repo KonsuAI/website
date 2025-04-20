@@ -1,3 +1,4 @@
+import type { Embed } from "$lib/components/chat";
 import { type _SSEvent, SSE } from "sse.js";
 
 export const BASE_URL = "https://api.konsu.ai";
@@ -17,6 +18,7 @@ export class Chat {
         fragment: (
             response: string,
         ) => void,
+        embed: (payload: Embed) => void,
     ): Promise<void> {
         return new Promise((resolve, reject) => {
             const events = new SSE(`${BASE_URL}/chat/${this.session_id}`, {
@@ -27,6 +29,11 @@ export class Chat {
             events.addEventListener("message", (ev: _SSEvent) => {
                 const response = JSON.parse(ev.data);
                 fragment(response);
+            });
+            events.addEventListener("embed", (ev: _SSEvent) => {
+                const response = JSON.parse(ev.data) as Embed;
+                console.log({ api: response });
+                embed(response);
             });
             events.addEventListener("turn_complete", () => resolve());
             events.addEventListener("error", (err: unknown) => reject(err));

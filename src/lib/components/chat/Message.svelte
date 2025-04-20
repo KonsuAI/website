@@ -1,13 +1,16 @@
 <script lang="ts" module>
 	import DOMPurify from 'dompurify';
 	import { Marked } from 'marked';
-	import ChatFilter, { SYNTAX as CHAT_FILTER_SYNTAX, extract, TAG_NAME } from './ChatFilter.svelte';
+	import { browser } from '$app/environment';
+	import { EMBEDS } from '.';
+
+	console.log({ EMBEDS });
 
 	const purifier = DOMPurify(globalThis?.window);
 
 	// Changing paragraphs to use <div> to not break SvelteKit,
 	// because *technically* <div> inside <p> is invalid HTML.
-	const marked = new Marked(CHAT_FILTER_SYNTAX, {
+	const marked = new Marked(...EMBEDS.map((embed) => embed.SYNTAX), {
 		renderer: {
 			paragraph({ tokens }) {
 				return `<div>${this.parser.parseInline(tokens)}</div>`;
@@ -25,17 +28,18 @@
 				}
 
 				let a = purifier.sanitize(marked.parse(sourceMarkdown, { async: false }), {
-					ADD_TAGS: [TAG_NAME]
+					ADD_TAGS: EMBEDS.map((embed) => embed.TAG_NAME)
 				});
 
 				return `<div>${a}</div>`;
 			},
 			setup: (el) => {
-				const components = Array.from(el.querySelectorAll(TAG_NAME)).map((el) => {
-					const { kind } = extract(el);
-					return mount(ChatFilter, {
-						target: el,
-						props: { kind }
+				const components = EMBEDS.flatMap(({ TAG_NAME, extract, default: Component }) => {
+					return Array.from(el.querySelectorAll(TAG_NAME)).map((el) => {
+						return mount(Component, {
+							target: el,
+							props: extract(el)
+						});
 					});
 				});
 				return () => components.forEach((comp) => unmount(comp));
