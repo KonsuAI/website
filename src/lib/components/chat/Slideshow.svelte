@@ -57,7 +57,10 @@
 
 	let scrollPosition = $state(0);
 	let selected = $derived(
-		Math.round(scrollPosition / ((container as HTMLDivElement | undefined)?.scrollWidth ?? 0))
+		Math.round(
+			(scrollPosition / ((container as HTMLDivElement | undefined)?.scrollWidth ?? 0)) *
+				slideshow!.slideshow.length
+		)
 	);
 </script>
 
@@ -88,7 +91,9 @@
 						type="button"
 						aria-label="Photo {i + 1} of {slideshow.slideshow.length}"
 						onclick={() => {
-							scrollPosition = i * ((container as HTMLDivElement | undefined)?.scrollWidth ?? 0);
+							scrollPosition =
+								(i / slideshow.slideshow.length) *
+								((container as HTMLDivElement | undefined)?.scrollWidth ?? 0);
 							container?.scrollTo({
 								left: scrollPosition,
 								behavior: 'smooth'
