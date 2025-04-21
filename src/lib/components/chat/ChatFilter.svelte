@@ -14,6 +14,7 @@
 
 	const tokenizerRule = new RegExp(`^@(${Object.keys(FILTER_TYPES).join('|')})@`);
 	export const TAG_NAME = 'konsu-filter';
+	export const HAS_PAYLOAD = false;
 	export const SYNTAX: MarkedExtension = {
 		extensions: [
 			{

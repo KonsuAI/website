@@ -2,7 +2,6 @@
 	import type { MarkedExtension } from 'marked';
 	import { getContext, onMount } from 'svelte';
 	import type { EmbedContext } from '.';
-	import { get, type Writable } from 'svelte/store';
 
 	export type SlideshowEmbed = {
 		slideshow: {
@@ -13,6 +12,7 @@
 
 	const tokenizerRule = new RegExp(`^@@@SLIDESHOW@@@`);
 	export const TAG_NAME = 'konsu-slideshow';
+	export const HAS_PAYLOAD = true;
 	export const SYNTAX: MarkedExtension = {
 		extensions: [
 			{
@@ -41,19 +41,9 @@
 </script>
 
 <script lang="ts">
-	import { twMerge } from 'tailwind-merge';
+	let container: HTMLDivElement | undefined = $state(undefined);
 
-	const embed: Writable<EmbedContext> = getContext('embed_ctx');
-	let slideshow: SlideshowEmbed | undefined = $state(undefined);
-	onMount(() => {
-		embed.update((ctx) => {
-			console.log({ ctx });
-			slideshow = ctx.embeds[ctx.current_index];
-			return ctx;
-		});
-	});
-
-	let container: HTMLDivElement | undefined = undefined;
+	let { payload: slideshow }: { payload: SlideshowEmbed } = $props();
 
 	let scrollPosition = $state(0);
 	let selected = $derived(
@@ -64,22 +54,24 @@
 	);
 </script>
 
-<div
-	class="not-prose scrollbar-none relative my-4 grid snap-x snap-mandatory auto-cols-[100%] grid-flow-col gap-4 overflow-x-scroll overscroll-none rounded-3xl border-2"
-	onscroll={(e) => (scrollPosition = (e.target as HTMLElement).scrollLeft)}
-	dir="ltr"
-	bind:this={container}
->
+<div class="embed not-prose relative my-4 aspect-video w-full lg:max-w-[40dvw]">
 	{#if slideshow !== undefined}
-		{#each slideshow.slideshow as photo, i (i)}
-			<div class="w-full snap-center">
-				<img src={photo.url} alt="" class="margin-0 w-full object-cover" />
-			</div>
-		{/each}
+		<div
+			class="absoulte scrollbar-none z-0 grid h-full w-full snap-x snap-mandatory auto-cols-[100%] grid-flow-col auto-rows-[100%] gap-4 overflow-x-scroll overscroll-none rounded-3xl border-2"
+			onscroll={(e) => (scrollPosition = (e.target as HTMLElement).scrollLeft)}
+			dir="ltr"
+			bind:this={container}
+		>
+			{#each slideshow.slideshow as photo, i (i)}
+				<div class="snap-center">
+					<img src={photo.url} alt="" class="margin-0 h-full w-full object-cover" />
+				</div>
+			{/each}
+		</div>
 
-		<div class="absolute bottom-8 left-4">
+		<div class="absolute bottom-4 left-4 z-10 w-1/4 max-w-[25%]">
 			<div
-				class="fixed grid h-4 w-[25%] max-w-[25%] gap-4"
+				class="grid h-4 gap-4"
 				style="grid-template-columns: repeat({slideshow.slideshow.length}, 1fr)"
 			>
 				{#each slideshow.slideshow as _, i (i)}
@@ -92,7 +84,7 @@
 						aria-label="Photo {i + 1} of {slideshow.slideshow.length}"
 						onclick={() => {
 							scrollPosition =
-								(i / slideshow.slideshow.length) *
+								(i / slideshow!.slideshow.length) *
 								((container as HTMLDivElement | undefined)?.scrollWidth ?? 0);
 							container?.scrollTo({
 								left: scrollPosition,

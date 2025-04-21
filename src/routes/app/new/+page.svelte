@@ -10,7 +10,7 @@
 	import ChatFilter from '$lib/components/chat/ChatFilter.svelte';
 	import Message from '$lib/components/chat/Message.svelte';
 	import Back from '$lib/components/Back.svelte';
-	import { setContext } from 'svelte';
+	import { onMount, setContext } from 'svelte';
 	import type { EmbedContext, Embed } from '$lib/components/chat';
 	import { writable, type Writable } from 'svelte/store';
 
@@ -31,45 +31,44 @@
 		promConversation = LlmConversation.new();
 	});
 
-	let currentMessage: string = $state('');
-	const embeds: Writable<EmbedContext> = setContext(
-		'embed_ctx',
-		writable({
-			embeds: [],
-			current_index: 0
-		})
-	);
+	let textInput: string = $state('');
+	let embeds: EmbedContext = setContext('embed_ctx', { embeds: [], main: undefined as any });
+
+	onMount(() => {
+		embeds.main = main;
+	});
+
+	// messages.subscribe(() => embeds.update((ctx) => ((ctx.current_index = 0), ctx)));
+
 	const sendMessage = (conversation: LlmConversation) => (e: MouseEvent) => {
 		e.preventDefault();
 		isScrolledToBottom = main?.scrollHeight - main?.clientHeight <= main?.scrollTop + 10;
 
-		if (currentMessage.trim() == '') {
+		if (textInput.trim() == '') {
 			return;
 		}
-		messages.push({ text: currentMessage, user: true });
+		messages.push({ text: textInput, user: true });
 
 		let obj = { text: '', user: false };
 		messages.push(obj);
 
 		conversation?.send(
-			{ prompt: currentMessage },
+			{ prompt: textInput },
 			(response) => {
 				console.log({ response });
 				if (response) {
 					obj.text += response;
 				}
+
 				messages[messages.length - 1] = obj;
 			},
 			(embed) => {
 				console.log({ got_embed: embed });
-				embeds.update((ctx) => {
-					ctx.embeds.push(embed);
-					return ctx;
-				});
+				embeds.embeds.push(embed);
 			}
 		);
 
-		currentMessage = '';
+		textInput = '';
 	};
 </script>
 
@@ -140,7 +139,7 @@
 			<textarea
 				class="placeholder:text-konsu-light-00 col-start-1 box-border field-sizing-content h-max max-h-75 w-full max-w-full resize-none px-1 leading-[1.1] outline-0 outline-none placeholder:italic"
 				placeholder="Where can I take you?"
-				bind:value={currentMessage}
+				bind:value={textInput}
 			></textarea>
 			<button
 				class="bg-konsu-ui-primary shadow-md-3 col-start-2 aspect-square h-max w-max cursor-pointer rounded-xl p-[10px]"
